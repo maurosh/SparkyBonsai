@@ -90,20 +90,32 @@ A suggested practice is to load in RAM the basic filesystem (using the boot code
 
 Hope to enjoy this floral pup as we did. If you do, consider sending a donation to our favor Debian distribution, Sparkylinux. https://sparkylinux.org/donate/
 
-Links: 
+Links:
+
 Debian GNU/Linux https://www.debian.org/
+
 Sparkylinux: https://sparkylinux.org/	forum: https://forum.sparkylinux.org/
+
 DebianDog: https://debiandog.github.io/doglinux/
+
 BusterDog forum thread: http://murga-linux.com/puppy/viewtopic.php?t=117255
+
 Porteus Linux: http://www.porteus.org/	forum: https://forum.porteus.org/
+
 Slax Linux: https://www.slax.org/
+
 Puppy Linux: http://puppylinux.com/	forum: http://www.murga-linux.com/puppy/
 
 Downloads:
+
 SparkyBonsai 64bit, December 2019: https://osdn.net/dl/sparkybonsai/sparkybonsai-64-2019.iso
 
 Modules:
+
 Firefox ESR:	https://osdn.net/dl/sparkybonsai/02-firefox.squashfs
+
 Thunderbird + Lightning addon	https://osdn.net/dl/sparkybonsai/02-thunderbird.squashfs
+
 LibreOffice:	https://osdn.net/dl/sparkybonsai/02-libreoffice.squashfs
+
 Sparky-play +Sparky-player (simple mp3 and video players):	https://osdn.net/dl/sparkybonsai/02-mediaplay.squashfs
