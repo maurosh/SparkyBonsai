@@ -90,7 +90,7 @@ A suggested practice is to load in RAM the basic filesystem (using the boot code
 
 Hope to enjoy this floral pup as we did. If you do, consider sending a donation to our favor Debian distribution, Sparkylinux. https://sparkylinux.org/donate/
 
-Links:
+**Links:**
 
 Debian GNU/Linux https://www.debian.org/
 
@@ -106,7 +106,7 @@ Slax Linux: https://www.slax.org/
 
 Puppy Linux: http://puppylinux.com/	forum: http://www.murga-linux.com/puppy/
 
-Downloads:
+**Downloads:**
 
 SparkyBonsai 64bit, December 2019: https://osdn.net/dl/sparkybonsai/sparkybonsai-64-2019.iso
 
