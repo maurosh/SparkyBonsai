@@ -35,6 +35,7 @@ The Slax syslinux install script will make your media bootable ONLY for Sparky B
 2b. Edit the file /etc/grub.d/40_custom as root and add a menu entry:
 sudo nano /etc/grub.d/40_custom
 add a menuentry with the codes you wish, ie:
+
 menuentry "SparkyBonsai Porteus Boot" {
 linux /live/vmlinuz1 from=/ changes=/live
 initrd /live/initrd1.xz
