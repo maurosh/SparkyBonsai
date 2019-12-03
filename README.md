@@ -46,7 +46,7 @@ sudo update-grub
 
 2d.Reboot and find the custom option on grub’s menu.
 
-3. Network boot (pxe) is also possible using the proper boot parameters in your server’s pxelinux.cfg/default. If you wish to save changes on server, the use of nfs server is recommended. Sparky Bonsai won’t run a pxe server pre-configured (as pure Porteus do), so you have to configure it according your server’s OS instructions.
+3. Network boot (pxe) is also possible using the proper boot parameters in your server’s pxelinux.cfg/default. If you wish to save changes on server, the use of nfs server is recommended. Sparky Bonsai won’t run a pxe server pre-configured (as pure Porteus do), so you have to configure it according to your server’s OS instructions.
 
 ### Usage
 Login:
