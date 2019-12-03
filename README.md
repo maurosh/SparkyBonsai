@@ -10,7 +10,7 @@ Sparky Bonsai lives in a USB flash 4GB minimum and run with 512 MB of RAM on x86
 
 It is a minimal Debian Buster file system using Debian linux kernel v. 4.19.0.6 with the BusterDog’s modules for porteus boot, live-boot-3x and aufs support. Kernel updates are not available the way they are on a properly installed linux system. As you may know, BusterDog uses the Antix Linux init system. Sparky Bonsai uses systemd as pure Debian and Sparky Linux. If you don’t wish to use systemd, check the BusterDog (based on Antix) or Beowolf (based on Devuan).
 
-Sparky Bonsai use PCmanFM as file/desktop manager and JWM as windows manager. JWM’s menu construction is based on xdgmenumaker. It cames with Pale Moon as the default web browser, Mousepad as the default text editor and LXterminal as default terminal emulator. All DebianDog’s module and remaster scripts are included as well. 
+Sparky Bonsai use PCmanFM as file/desktop manager and JWM as windows manager. JWM’s menu construction is based on xdgmenumaker. It comes with Pale Moon as the default web browser, Mousepad as the default text editor and LXterminal as default terminal emulator. All DebianDog’s module and remaster scripts are included as well. 
 
 Synaptic package manager is present and you can install all Debian and Sparkylinux packages. The BusterDog’s repository is inactive because of some Antix packets incompatible with Debian. You can use some packets if you’re sure they are compatible but DONT update your system with this repository enabled.
 
