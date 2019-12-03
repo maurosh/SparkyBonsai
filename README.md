@@ -49,12 +49,11 @@ sudo update-grub
 3. Network boot (pxe) is also possible using the proper boot parameters in your server’s pxelinux.cfg/default. If you wish to save changes on server, the use of nfs server is recommended. Sparky Bonsai won’t run a pxe server pre-configured (as pure Porteus do), so you have to configure it according to your server’s OS instructions.
 
 ### Usage
-Login:
-
-**root** with password: **toor**
-
-**puppy** with password: **puppy**
-
+**Login:**
+```
+root with password: toor
+puppy with password: puppy
+```
 Sparky Bonsai is an ideal portable solution for “sparkers” (sparkylinux users) and Debian users. Some useful sparky tools as APTus are not included in order to keep the filesystem lightweight. You can install anytime APTus or any other sparky tool, but it’s recommended not to do this. You can always install sparky packets straight from Synaptic or apt. 
 As mentioned before, some sparky tools such as the kernel related ones, are not useful in Sparky Bonsai. There’s no sense also to install a heavyweight desktop environment from sparky repos. If you wish to do so, consider of installing a full version of Sparkylinux on a hard disk or even on a removable media.
 
