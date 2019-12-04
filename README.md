@@ -75,7 +75,7 @@ Puppy user is pre-configure to use sudo, open folders or edit files as root from
 
 The main aim of Sparky Bonsai is the aufs support, where the filesystem contains compressed (squashfs files), non-compressed (changes directory), even encrypted (if you choose so) parts working together. There are available for download some compressed, squashfs files and you can always create your own files after installing the packets you choose.
 Into /live directory there are the linux kernel (vmlinuz1) files for porteus-boot (initrd1.xz) or live-boot-3x (initrd.img) modes, buster 64 signature (buster-x86_64.sgn), the base filesystem (01-filesystem.squashfs) and the porteus structure directories. Find more about it at Porteus website: http://www.porteus.org/tutorials/26-general-info-tutorials/
-Those directories, so-called “magic” folders, and contained files will be ignored with the boot code “nomagic”.
+Those directories, so-called “magic” folders, and their contents will be ignored with the boot code “nomagic”.
 
 The /live/changes directory contains all new uncompressed files, installed packets, configuration flat files etc stored by the system during the session. It contains even deletion data it you choose to remove files from the base filesystem. Instead of /live/changes directory you can use a “frugal file”, a read/writeable image file created by the system on demand. It will ask you at the end of your session if you want to save your changes or ignore them. This file can be encrypted, only visible by the user who created it.
 
