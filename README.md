@@ -57,17 +57,30 @@ puppy with password: puppy
 Sparky Bonsai is an ideal portable solution for “sparkers” (sparkylinux users) and Debian users. Some useful sparky tools as APTus are not included in order to keep the filesystem lightweight. You can install anytime APTus or any other sparky tool, but it’s recommended not to do this. You can always install sparky packets straight from Synaptic or apt. 
 As mentioned before, some sparky tools such as the kernel related ones, are not useful in Sparky Bonsai. There’s no sense also to install a heavyweight desktop environment from sparky repos. If you wish to do so, consider of installing a full version of Sparkylinux on a hard disk or even on a removable media.
 
-Sparky Bonsai will auto-mount all available disk partitions on boot, will use the first swap formated as swap and mount the rest under /mnt. Find the first partition of the first disk as /mnt/sda1, the first partition of the second disk as /mnt/sdb1, the first optical disk as /mnt/sr0 etc.
+Sparky Bonsai will auto-mount all available disk partitions on boot, will use the first swap formatted as swap and mount the rest under /mnt. Find the first partition of the first disk as /mnt/sda1, the first partition of the second disk as /mnt/sdb1, the first optical disk as /mnt/sr0 etc.
 
-After a successful boot, logins automatically as user «puppy» getting tty (getty) and loads the desktop. So, if you prefere to login manually or auto-login another user, you have to manual edit the file /lib/systemd/system/getty@.service and change the line ExecStart=-/sbin/agetty --noclear -a puppy %I $TERM as below:
+After a successful boot, logins automatically as user «puppy» using slim login manager and loads the desktop. So, if you prefer to login manually or auto-login another user, you have to manual edit the file /etc/slim.conf and change the lines "default_user  puppy" and  "auto_login  no" as below:
 
-sudo nano /lib/systemd/system/getty@.service
+sudo nano /etc/slim.conf
+or
+xsudo mousepad /etc/slim.conf
 
-find the line:
-ExecStart=-/sbin/agetty --noclear -a puppy %I $TERM
+Case 1 - To change auto-login username:
+find the line containing:
+default_user        puppy
 
-and remove « -a puppy» for manual (or other method of) login or
-change «puppy» to the existing user you wish to auto-login.
+and change «puppy» to the existing user you wish to auto-login.
+Save the file and reboot.
+
+Case 2 - Manual login:
+Change the default username as described, if you wish,
+find the line containing:
+#auto_login          no
+
+and change it to:
+auto_login          yes
+Save the file and reboot.
+
 
 Note: There’s also a useful Porteus “cheatcode” login=username for auto-login. Unfortunately, it won’t work with Sparky Bonsai or other Debian-based distros using Porteus-boot. 
 
@@ -77,7 +90,7 @@ The main aim of Sparky Bonsai is the aufs support, where the filesystem contains
 Into /live directory there are the linux kernel (vmlinuz1) files for porteus-boot (initrd1.xz) or live-boot-3x (initrd.img) modes, buster 64 signature (buster-x86_64.sgn), the base filesystem (01-filesystem.squashfs) and the porteus structure directories. Find more about it at Porteus website: http://www.porteus.org/tutorials/26-general-info-tutorials/
 Those directories, so-called “magic” folders, and their contents will be ignored with the boot code “nomagic”.
 
-The /live/changes directory contains all new uncompressed files, installed packets, configuration flat files etc stored by the system during the session. It contains even deletion data it you choose to remove files from the base filesystem. Instead of /live/changes directory you can use a “frugal file”, a read/writeable image file created by the system on demand. It will ask you at the end of your session if you want to save your changes or ignore them. This file can be encrypted, only visible by the user who created it.
+The /live/changes directory contains all new uncompressed files, installed packets, configuration flat files etc stored by the system during the session. It contains even deletion data it you choose to remove files from the base filesystem. The use of /live/changes directory requires linux file system (ext2/3/4, xfs etc) formatted disk. Instead of /live/changes directory you can use a “frugal file”, a read/writeable image file created by the system on demand. It will ask you at the end of your session if you want to save your changes or ignore them. This file can be encrypted, only visible by the user who created it. Thiw .dat file can be stored in non-linux (fat32/ntfs) formatted disks.
 
 In order to mount your changes on next boot, you have to edit the boot parameter “changes=”. For example, the boot parameter “changes=/live” will load/save the filesystem part located at /live/changes directory. A parameter “changes=/somefolder” will load/save the /somefolder/changes files etc. The boot parameter “changes=/live/changes.dat” will load/save the contents in the frugal file “/live/changes.dat”.
 
