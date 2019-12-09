@@ -137,3 +137,6 @@ Thunderbird + Lightning addon	https://osdn.net/dl/sparkybonsai/02-thunderbird.sq
 LibreOffice:	https://osdn.net/dl/sparkybonsai/02-libreoffice.squashfs
 
 Sparky-play +Sparky-player (simple mp3 and video players):	https://osdn.net/dl/sparkybonsai/02-mediaplay.squashfs
+
+Non-free firmware https://osdn.net/dl/sparkybonsai/01-firmware-nonfree.squashfs
+
