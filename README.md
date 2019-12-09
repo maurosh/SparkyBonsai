@@ -78,7 +78,7 @@ find the line containing:
 #auto_login          no
 
 and change it to:
-auto_login          yes
+auto_login          no
 Save the file and reboot.
 
 
