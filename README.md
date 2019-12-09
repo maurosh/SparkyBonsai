@@ -60,7 +60,7 @@ As mentioned before, some sparky tools such as the kernel related ones, are not 
 Sparky Bonsai will auto-mount all available disk partitions on boot, will use the first swap formatted as swap and mount the rest under /mnt. Find the first partition of the first disk as /mnt/sda1, the first partition of the second disk as /mnt/sdb1, the first optical disk as /mnt/sr0 etc.
 
 After a successful boot, logins automatically as user «puppy» using slim login manager and loads the desktop. So, if you prefer to login manually or auto-login another user, you have to manual edit the file /etc/slim.conf and change the lines "default_user  puppy" and  "auto_login  no" as below:
-
+```
 sudo nano /etc/slim.conf
 or
 xsudo mousepad /etc/slim.conf
@@ -80,7 +80,7 @@ find the line containing:
 and change it to:
 auto_login          no
 Save the file and reboot.
-
+```
 
 Note: There’s also a useful Porteus “cheatcode” login=username for auto-login. Unfortunately, it won’t work with Sparky Bonsai or other Debian-based distros using Porteus-boot. 
 
