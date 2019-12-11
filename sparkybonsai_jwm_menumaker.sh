@@ -4,12 +4,18 @@
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
-## the xml tag: "<include>exec:sh /path/to/sparkybonsai_jwm_menumaker.sh</incude>"
+## the xml tag: "<include>exec:sh /path/to/sparkybonsai_jwm_menumaker.sh</include>"
 
-## Fixing array
+## Creating array
 IFS=$'\n';
 apparray=($(find /usr/share/applications/ -maxdepth 1 -name "*.desktop"));
 
+## Fixing desktop files
+for i in "${!apparray[@]}"; do
+      touch ${apparray[$i]};
+done
+
+## Fixing array
 for i in "${!apparray[@]}"; do
 NoDisplay=$(grep '^NoDisplay' ${apparray[$i]} | sed 's/^NoDisplay=//')
    if [[ "$NoDisplay" = "true" ]]; then
@@ -20,11 +26,6 @@ IFS=$'\n' appsorted=($(sort <<<"${apparray[*]}"))
 
 apparray=("${appsorted[@]}");
 unset appsorted;
-
-## Fixing desktop files
-for i in "${!apparray[@]}"; do
-      touch ${apparray[$i]};
-done
 
 ## Categories
 for i in "${!apparray[@]}"; do
