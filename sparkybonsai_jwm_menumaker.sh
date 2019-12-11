@@ -10,15 +10,11 @@
 IFS=$'\n';
 apparray=($(find /usr/share/applications/ -maxdepth 1 -name "*.desktop"));
 
-## Fixing desktop files
-for i in "${!apparray[@]}"; do
-      touch ${apparray[$i]};
-done
-
 ## Fixing array
 for i in "${!apparray[@]}"; do
 NoDisplay=$(grep '^NoDisplay' ${apparray[$i]} | sed 's/^NoDisplay=//')
-   if [[ "$NoDisplay" = "true" ]]; then
+Terminal=$(grep '^Terminal' ${apparray[$i]} | sed 's/^Terminal=//')
+   if [[ "$NoDisplay" = "true" || "$Terminal" = "true" ]]; then
       unset -v 'apparray[$i]';
    fi
 done
@@ -27,9 +23,25 @@ IFS=$'\n' appsorted=($(sort <<<"${apparray[*]}"))
 apparray=("${appsorted[@]}");
 unset appsorted;
 
+## Reading files
+catarray=();
+namarray=();
+icoarray=();
+exearray=();
+for i in "${!apparray[@]}"; do
+      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//');
+      Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
+      Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
+      Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+      catarray+=( "$Categories" );
+      namarray+=( "$Name" );
+      icoarray+=( "$Icon" );
+      exearray+=( "$Exec" );
+done
+
 ## Categories
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Utility"* && "$Categories" != *"System"* && "$Categories" != *"Modul"* ]]; then
          cacc="yes";
       fi
@@ -73,11 +85,11 @@ echo '<JWM>';
 if [[ "$cacc" = "yes" ]]; then
 echo '<Menu label="Accessories" icon="applications-accessories.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Utility"* && "$Categories" != *"System"* && "$Categories" != *"Modul"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -88,11 +100,11 @@ fi
 if [[ "$cedu" = "yes" ]]; then
 echo '<Menu label="Education" icon="applications-science.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Education"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -103,11 +115,11 @@ fi
 if [[ "$cgam" = "yes" ]]; then
 echo '<Menu label="Games" icon="applications-games.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Game"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -118,11 +130,11 @@ fi
 if [[ "$cgra" = "yes" ]]; then
 echo '<Menu label="Graphics" icon="applications-graphics.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Graphics"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -133,11 +145,11 @@ fi
 if [[ "$cnet" = "yes" ]]; then
 echo '<Menu label="Network" icon="applications-internet.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Network"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -148,11 +160,11 @@ fi
 if [[ "$coff" = "yes" ]]; then
 echo '<Menu label="Office" icon="applications-office.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"ffice"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -163,11 +175,11 @@ fi
 if [[ "$coth" = "yes" ]]; then
 echo '<Menu label="Other" icon="applications-other.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Other"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -178,11 +190,11 @@ fi
 if [[ "$cdev" = "yes" ]]; then
 echo '<Menu label="Development" icon="applications-development.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Development"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -193,11 +205,11 @@ fi
 if [[ "$caud" = "yes" ]]; then
 echo '<Menu label="AudioVideo" icon="applications-multimedia.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Audio"* || "$Categories" == *"Video"* || "$Categories" == *"Player"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -208,11 +220,11 @@ fi
 if [[ "$csys" = "yes" ]]; then
 echo '<Menu label="System" icon="preferences-system.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -224,11 +236,11 @@ fi
 if [[ "$cmod" = "yes" ]]; then
 echo '<Menu label="Module Tools" icon="gnome-settings.svg">';
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')
+      Categories=${catarray[$i]};
       if [[ "$Categories" == *"Modul"* ]]; then
-         Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-         Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-         Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
+         Name=${namarray[$i]};
+         Icon=${icoarray[$i]};
+         Exec=${exearray[$i]};
          echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
       fi
 done
@@ -236,5 +248,9 @@ echo '</Menu>';
 fi
 ## XML footer
 unset apparray;
+unset catarray;
+unset namarray;
+unset icoarray;
+unset exearray;
 unset IFS;
 echo '</JWM>';
