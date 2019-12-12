@@ -1,6 +1,6 @@
 #!/bin/bash
 ## SparkyBonsai JWM Menu Maker bash script 
-## published under GNU GPLv2
+## published under GPLv2
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
@@ -29,14 +29,10 @@ namarray=();
 icoarray=();
 exearray=();
 for i in "${!apparray[@]}"; do
-      Categories=$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//');
-      Name=$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)
-      Icon=$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')
-      Exec=$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')
-      catarray+=( "$Categories" );
-      namarray+=( "$Name" );
-      icoarray+=( "$Icon" );
-      exearray+=( "$Exec" );
+      catarray+=( "$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')" );
+      namarray+=( "$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)" );
+      icoarray+=( "$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')" );
+      exearray+=( "$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')" );
 done
 
 ## Categories
@@ -87,10 +83,7 @@ echo '<Menu label="Accessories" icon="applications-accessories.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Utility"* && "$Categories" != *"System"* && "$Categories" != *"Modul"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -102,10 +95,7 @@ echo '<Menu label="Education" icon="applications-science.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Education"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -117,10 +107,7 @@ echo '<Menu label="Games" icon="applications-games.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Game"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -132,10 +119,7 @@ echo '<Menu label="Graphics" icon="applications-graphics.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Graphics"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -147,10 +131,7 @@ echo '<Menu label="Network" icon="applications-internet.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Network"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -162,10 +143,7 @@ echo '<Menu label="Office" icon="applications-office.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"ffice"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -177,10 +155,7 @@ echo '<Menu label="Other" icon="applications-other.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Other"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -192,10 +167,7 @@ echo '<Menu label="Development" icon="applications-development.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Development"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -207,10 +179,7 @@ echo '<Menu label="AudioVideo" icon="applications-multimedia.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Audio"* || "$Categories" == *"Video"* || "$Categories" == *"Player"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -222,10 +191,7 @@ echo '<Menu label="System" icon="preferences-system.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
@@ -238,10 +204,7 @@ echo '<Menu label="Module Tools" icon="gnome-settings.svg">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Modul"* ]]; then
-         Name=${namarray[$i]};
-         Icon=${icoarray[$i]};
-         Exec=${exearray[$i]};
-         echo '<Program label="'$Name'" icon="'$Icon'">'$Exec'</Program>'; 
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
