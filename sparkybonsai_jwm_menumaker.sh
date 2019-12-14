@@ -220,7 +220,6 @@ for i in "${!apparray[@]}"; do
 done
 echo '</Menu>';
 fi
-## /System Menu
 
 ## Modules Menu
 if [[ "$cmod" = "yes" ]]; then
