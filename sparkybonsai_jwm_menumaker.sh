@@ -1,6 +1,6 @@
 #!/bin/bash
 ## SparkyBonsai JWM Menu Maker bash script 
-## published under GPLv2
+## published under GNU GPLv2
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
