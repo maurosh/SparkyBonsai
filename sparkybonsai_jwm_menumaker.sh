@@ -6,6 +6,30 @@
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
 ## the xml tag: "<include>exec:sh /path/to/sparkybonsai_jwm_menumaker.sh</include>"
 
+## Categories icons
+# accessories
+icoacc="applications-accessories.svg";
+# education
+icoedu="applications-science.svg";
+# games
+icogam="applications-games.svg";
+# graphics
+icogra="applications-graphics.svg";
+# network
+iconet="applications-internet.svg";
+# office
+icooff="applications-office.svg";
+# other
+icooth="applications-other.svg";
+# development
+icodev="applications-development.svg";
+# audiovideo
+icoaud="applications-multimedia.svg";
+# system
+icosys="preferences-system.svg";
+# modules
+icomod="gnome-settings.svg";
+
 ## Creating array
 IFS=$'\n';
 apparray=($(find /usr/share/applications/ -maxdepth 1 -name "*.desktop"));
@@ -79,7 +103,7 @@ echo '<JWM>';
 
 ## Accessories Menu
 if [[ "$cacc" = "yes" ]]; then
-echo '<Menu label="Accessories" icon="applications-accessories.svg">';
+echo '<Menu label="Accessories" icon="'$icoacc'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Utility"* && "$Categories" != *"System"* && "$Categories" != *"Modul"* ]]; then
@@ -91,7 +115,7 @@ fi
 
 ## Education Menu
 if [[ "$cedu" = "yes" ]]; then
-echo '<Menu label="Education" icon="applications-science.svg">';
+echo '<Menu label="Education" icon="'$icoedu'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Education"* ]]; then
@@ -103,7 +127,7 @@ fi
 
 ## Games Menu
 if [[ "$cgam" = "yes" ]]; then
-echo '<Menu label="Games" icon="applications-games.svg">';
+echo '<Menu label="Games" icon="'$icogam'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Game"* ]]; then
@@ -115,7 +139,7 @@ fi
 
 ## Graphics Menu
 if [[ "$cgra" = "yes" ]]; then
-echo '<Menu label="Graphics" icon="applications-graphics.svg">';
+echo '<Menu label="Graphics" icon="'$icogra'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Graphics"* ]]; then
@@ -127,7 +151,7 @@ fi
 
 ## Network Menu
 if [[ "$cnet" = "yes" ]]; then
-echo '<Menu label="Network" icon="applications-internet.svg">';
+echo '<Menu label="Network" icon="'$iconet'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Network"* ]]; then
@@ -139,7 +163,7 @@ fi
 
 ## Office Menu
 if [[ "$coff" = "yes" ]]; then
-echo '<Menu label="Office" icon="applications-office.svg">';
+echo '<Menu label="Office" icon="'$icooff'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"ffice"* ]]; then
@@ -151,7 +175,7 @@ fi
 
 ## Other Menu
 if [[ "$coth" = "yes" ]]; then
-echo '<Menu label="Other" icon="applications-other.svg">';
+echo '<Menu label="Other" icon="'$icooth'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Other"* ]]; then
@@ -163,7 +187,7 @@ fi
 
 ## Development Menu
 if [[ "$cdev" = "yes" ]]; then
-echo '<Menu label="Development" icon="applications-development.svg">';
+echo '<Menu label="Development" icon="'$icodev'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Development"* ]]; then
@@ -175,7 +199,7 @@ fi
 
 ## AudioVideo Menu
 if [[ "$caud" = "yes" ]]; then
-echo '<Menu label="AudioVideo" icon="applications-multimedia.svg">';
+echo '<Menu label="AudioVideo" icon="'$icoaud'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Audio"* || "$Categories" == *"Video"* || "$Categories" == *"Player"* ]]; then
@@ -187,7 +211,7 @@ fi
 
 ## System Menu
 if [[ "$csys" = "yes" ]]; then
-echo '<Menu label="System" icon="preferences-system.svg">';
+echo '<Menu label="System" icon="'$icosys'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* ]]; then
@@ -200,7 +224,7 @@ fi
 
 ## Modules Menu
 if [[ "$cmod" = "yes" ]]; then
-echo '<Menu label="Module Tools" icon="gnome-settings.svg">';
+echo '<Menu label="Module Tools" icon="'$icomod'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Modul"* ]]; then
@@ -209,11 +233,13 @@ for i in "${!apparray[@]}"; do
 done
 echo '</Menu>';
 fi
-## XML footer
+## cleaning
 unset apparray;
 unset catarray;
 unset namarray;
 unset icoarray;
 unset exearray;
 unset IFS;
+
+## XML footer
 echo '</JWM>';
