@@ -1,6 +1,6 @@
 #!/bin/bash
 ## SparkyBonsai JWM Menu Maker bash script 
-## published under GNU GPLv2
+## published under GPLv2
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
@@ -214,12 +214,13 @@ if [[ "$csys" = "yes" ]]; then
 echo '<Menu label="System" icon="'$icosys'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
-      if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* ]]; then
+      if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
          echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
       fi
 done
 echo '</Menu>';
 fi
+## /System Menu
 
 ## Modules Menu
 if [[ "$cmod" = "yes" ]]; then
@@ -232,13 +233,11 @@ for i in "${!apparray[@]}"; do
 done
 echo '</Menu>';
 fi
-## cleaning
+## XML footer
 unset apparray;
 unset catarray;
 unset namarray;
 unset icoarray;
 unset exearray;
 unset IFS;
-
-## XML footer
 echo '</JWM>';
