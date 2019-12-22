@@ -4,7 +4,7 @@
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
-## the xml tag: "<include>exec:sh /path/to/sparkybonsai_jwm_menumaker.sh</include>"
+## the xml tag: "<include>exec: menumaker</include>"
 
 ## Categories icons
 # accessories
