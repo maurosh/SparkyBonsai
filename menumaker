@@ -80,7 +80,7 @@ for i in "${!apparraylc[@]}"; do
       catarraylc[8]="$devnamelc";
       icoarraylc[8]="$icolc";
    fi
-   if [[ "$namarraylc" == *"Audio"* ]]; then
+   if [[ "$namarraylc" == *"Audio"* ||  "$namarraylc" == *"Video"* || "$namarraylc" == *"Player"* ]]; then
       catarraylc[9]="$devnamelc";
       icoarraylc[9]="$icolc";
    fi
