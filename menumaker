@@ -1,36 +1,21 @@
 #!/bin/bash
-## SparkyBonsai JWM Menu Maker bash script 
+## SparkyBonsai JWM Menu Maker bash script v 2.1
 ## published under GPLv2
 ## author mauros 
 ## for SparkyBonsai GNU/Linux https://github.com/maurosh/SparkyBonsai
 ## Usage: save and chmod +x or register this script on your system and put into .jwmrc file
-## the xml tag: "<include>exec: menumaker</include>"
+## the xml tag: "<Include>exec: menumaker</Include>"
 
-## Categories icons
-# accessories
-icoacc="applications-accessories.svg";
-# education
-icoedu="applications-science.svg";
-# games
-icogam="applications-games.svg";
-# graphics
-icogra="applications-graphics.svg";
-# network
-iconet="applications-internet.svg";
-# office
-icooff="applications-office.svg";
-# other
-icooth="applications-other.svg";
-# development
-icodev="applications-development.svg";
-# audiovideo
-icoaud="applications-multimedia.svg";
-# system
-icosys="preferences-system.svg";
-# modules
-icomod="gnome-settings.svg";
+## modules icon
+icomod="user-bookmarks";
 
-## Creating array
+## modules name
+namemod="DDog Tools";
+
+## localization
+lc="${LANG%_*}";
+
+## Creating apps array
 IFS=$'\n';
 apparray=($(find /usr/share/applications/ -maxdepth 1 -name "*.desktop"));
 
@@ -46,17 +31,94 @@ IFS=$'\n' appsorted=($(sort <<<"${apparray[*]}"))
 
 apparray=("${appsorted[@]}");
 unset appsorted;
+unset IFS;
 
-## Reading files
+## Creating categories array
+IFS=$'\n';
+apparraylc=($(find /usr/share/desktop-directories -maxdepth 1 -name "*.directory"));
+
+## Getting categories data
+catarraylc=(hoo);
+icoarraylc=();
+for i in "${!apparraylc[@]}"; do
+   namarraylc="$(grep '^Name=' ${apparraylc[$i]} | head -1 | sed 's/^Name=//' | tail -1)";
+   devnamelc="$(grep 'Name\['$lc'\]=' ${apparraylc[$i]})";
+   devnamelc="${devnamelc##*=}";
+   icolc=( "$(grep '^Icon=' ${apparraylc[$i]} | sed 's/^Icon=//' | head -1)" );
+   if [[ -z "$devnamelc" ]]; then
+      devnamelc="$namarraylc";
+   fi
+   if [[ "$namarraylc" == *"Accessories"* ]]; then
+      catarraylc[1]="$devnamelc";
+      icoarraylc[1]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Education"* ]]; then
+      catarraylc[2]="$devnamelc";
+      icoarraylc[2]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Game"* ]]; then
+      catarraylc[3]="$devnamelc";
+      icoarraylc[3]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Graphics"* ]]; then
+      catarraylc[4]="$devnamelc";
+      icoarraylc[4]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Internet"* ]]; then
+      catarraylc[5]="$devnamelc";
+      icoarraylc[5]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Office"* ]]; then
+      catarraylc[6]="$devnamelc";
+      icoarraylc[6]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Other"* ]]; then
+      catarraylc[7]="$devnamelc";
+      icoarraylc[7]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Development"* ]]; then
+      catarraylc[8]="$devnamelc";
+      icoarraylc[8]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Audio"* ]]; then
+      catarraylc[9]="$devnamelc";
+      icoarraylc[9]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"System"* ]]; then
+      catarraylc[10]="$devnamelc";
+      icoarraylc[10]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Preferences"* ]]; then
+      catarraylc[11]="$devnamelc";
+      icoarraylc[11]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Science"* ]]; then
+      catarraylc[12]="$devnamelc";
+      icoarraylc[12]="$icolc";
+   fi
+   if [[ "$namarraylc" == *"Universal"* ]]; then
+      catarraylc[13]="$devnamelc";
+      icoarraylc[13]="$icolc";
+   fi
+done
+
+## Getting apps data
 catarray=();
 namarray=();
 icoarray=();
 exearray=();
 for i in "${!apparray[@]}"; do
       catarray+=( "$(grep '^Categories' ${apparray[$i]} | sed 's/^Categories=//')" );
-      namarray+=( "$(grep '^Name=' ${apparray[$i]} | sed 's/^Name=//' | tail -1)" );
-      icoarray+=( "$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//')" );
-      exearray+=( "$(grep '^Exec' ${apparray[$i]} | sed 's/^Exec=//' | tail -1 | sed 's/%.//')" );
+      devname="$(grep 'Name\['$lc'\]=' ${apparray[$i]})";
+      devname="${devname##*=}";
+      if [[ -z "$devname" ]]; then
+         namarray+=( "$(grep '^Name=' ${apparray[$i]} | head -1 | sed 's/^Name=//' | tail -1)" );
+      else
+         namarray+=( "$devname" );
+      fi
+
+      icoarray+=( "$(grep '^Icon=' ${apparray[$i]} | sed 's/^Icon=//' | head -1)" );
+      exearray+=( "$(grep '^Exec' ${apparray[$i]} | head -1 | sed 's/^Exec=//' | tail -1 | sed 's/%.//')" );
 done
 
 ## Categories
@@ -92,8 +154,17 @@ for i in "${!apparray[@]}"; do
       if [[ "$Categories" == *"System"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
          csys="yes";
       fi
+      if [[ "$Categories" == *"Preferences"* && "$Categories" != *"System"* ]]; then
+         cpre="yes";
+      fi
       if [[ "$Categories" == *"Modul"* ]]; then
          cmod="yes";
+      fi
+      if [[ "$Categories" == *"Universal"*  && "$Categories" != *"System"* ]]; then
+         cuni="yes";
+      fi
+      if [[ "$Categories" == *"Science"*  && "$Categories" != *"System"* ]]; then
+         csci="yes";
       fi
 done
 
@@ -103,7 +174,7 @@ echo '<JWM>';
 
 ## Accessories Menu
 if [[ "$cacc" = "yes" ]]; then
-echo '<Menu label="Accessories" icon="'$icoacc'">';
+echo '<Menu label="'${catarraylc[1]}'" icon="'${icoarraylc[1]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Utility"* && "$Categories" != *"System"* && "$Categories" != *"Modul"* ]]; then
@@ -115,7 +186,7 @@ fi
 
 ## Education Menu
 if [[ "$cedu" = "yes" ]]; then
-echo '<Menu label="Education" icon="'$icoedu'">';
+echo '<Menu label="'${catarraylc[2]}'" icon="'${icoarraylc[2]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Education"* ]]; then
@@ -127,7 +198,7 @@ fi
 
 ## Games Menu
 if [[ "$cgam" = "yes" ]]; then
-echo '<Menu label="Games" icon="'$icogam'">';
+echo '<Menu label="'${catarraylc[3]}'" icon="'${icoarraylc[3]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Game"* ]]; then
@@ -139,7 +210,7 @@ fi
 
 ## Graphics Menu
 if [[ "$cgra" = "yes" ]]; then
-echo '<Menu label="Graphics" icon="'$icogra'">';
+echo '<Menu label="'${catarraylc[4]}'" icon="'${icoarraylc[4]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Graphics"* ]]; then
@@ -151,7 +222,7 @@ fi
 
 ## Network Menu
 if [[ "$cnet" = "yes" ]]; then
-echo '<Menu label="Network" icon="'$iconet'">';
+echo '<Menu label="'${catarraylc[5]}'" icon="'${icoarraylc[5]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Network"* ]]; then
@@ -163,7 +234,7 @@ fi
 
 ## Office Menu
 if [[ "$coff" = "yes" ]]; then
-echo '<Menu label="Office" icon="'$icooff'">';
+echo '<Menu label="'${catarraylc[6]}'" icon="'${icoarraylc[6]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"ffice"* ]]; then
@@ -175,7 +246,7 @@ fi
 
 ## Other Menu
 if [[ "$coth" = "yes" ]]; then
-echo '<Menu label="Other" icon="'$icooth'">';
+echo '<Menu label="'${catarraylc[7]}'" icon="'${icoarraylc[7]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Other"* ]]; then
@@ -187,7 +258,7 @@ fi
 
 ## Development Menu
 if [[ "$cdev" = "yes" ]]; then
-echo '<Menu label="Development" icon="'$icodev'">';
+echo '<Menu label="'${catarraylc[8]}'" icon="'${icoarraylc[8]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Development"* ]]; then
@@ -199,7 +270,7 @@ fi
 
 ## AudioVideo Menu
 if [[ "$caud" = "yes" ]]; then
-echo '<Menu label="AudioVideo" icon="'$icoaud'">';
+echo '<Menu label="'${catarraylc[9]}'" icon="'${icoarraylc[9]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Audio"* || "$Categories" == *"Video"* || "$Categories" == *"Player"* ]]; then
@@ -211,7 +282,7 @@ fi
 
 ## System Menu
 if [[ "$csys" = "yes" ]]; then
-echo '<Menu label="System" icon="'$icosys'">';
+echo '<Menu label="'${catarraylc[10]}'" icon="'${icoarraylc[10]}'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
@@ -220,11 +291,22 @@ for i in "${!apparray[@]}"; do
 done
 echo '</Menu>';
 fi
-## /System Menu
+
+## Preferences Menu
+if [[ "$cpre" = "yes" ]]; then
+echo '<Menu label="'${catarraylc[11]}'" icon="'${icoarraylc[11]}'">';
+for i in "${!apparray[@]}"; do
+      Categories=${catarray[$i]};
+      if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
+      fi
+done
+echo '</Menu>';
+fi
 
 ## Modules Menu
 if [[ "$cmod" = "yes" ]]; then
-echo '<Menu label="Module Tools" icon="'$icomod'">';
+echo '<Menu label="'$namemod'" icon="'$icomod'">';
 for i in "${!apparray[@]}"; do
       Categories=${catarray[$i]};
       if [[ "$Categories" == *"Modul"* ]]; then
@@ -233,11 +315,38 @@ for i in "${!apparray[@]}"; do
 done
 echo '</Menu>';
 fi
+
+## Science Menu
+if [[ "$cpre" = "yes" ]]; then
+echo '<Menu label="'${catarraylc[12]}'" icon="'${icoarraylc[12]}'">';
+for i in "${!apparray[@]}"; do
+      Categories=${catarray[$i]};
+      if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
+      fi
+done
+echo '</Menu>';
+fi
+
+## Universal Menu
+if [[ "$cpre" = "yes" ]]; then
+echo '<Menu label="'${catarraylc[13]}'" icon="'${icoarraylc[13]}'">';
+for i in "${!apparray[@]}"; do
+      Categories=${catarray[$i]};
+      if [[ "$Categories" == *"System"* && "$Categories" != *"Modul"* || "$Categories" == *"Settings"* && "$Categories" != *"Modul"* ]]; then
+         echo '<Program label="'${namarray[$i]}'" icon="'${icoarray[$i]}'">'${exearray[$i]}'</Program>'; 
+      fi
+done
+echo '</Menu>';
+fi
+
 ## XML footer
 unset apparray;
 unset catarray;
 unset namarray;
 unset icoarray;
 unset exearray;
+unset catarraylc;
+unset icoarraylc;
 unset IFS;
 echo '</JWM>';
