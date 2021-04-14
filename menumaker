@@ -76,7 +76,7 @@ for i in "${!apparraylc[@]}"; do
       catarraylc[7]="$devnamelc";
       icoarraylc[7]="$icolc";
    fi
-   if [[ "$namarraylc" == *"Development"* ]]; then
+      if [[ "$namarraylc" == *"Development"* || "$namarraylc" == *"Programming"* ]]; then 
       catarraylc[8]="$devnamelc";
       icoarraylc[8]="$icolc";
    fi
